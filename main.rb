@@ -9,6 +9,9 @@ secret = '011WCJ8ZTFV4TATF'
 handwriting_id = '5WGWVX9800WC'
 
 client = Handwritingio::Client.with_credentials(key, secret)
-# handwriting = client.handwriting(handwriting_id)
-# puts handwriting.created_at
-p client.handwritings
+handwriting = client.handwriting(handwriting_id)
+puts handwriting.title
+
+handwritings = client.handwritings(limit: 5, order_by: 'title')
+p handwritings.size
+p handwritings.map(&:title)

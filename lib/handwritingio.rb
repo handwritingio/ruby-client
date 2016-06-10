@@ -15,13 +15,18 @@ module Handwritingio
       Handwriting.new(JSON.parse(get("/handwritings/#{id}")))
     end
 
-    def handwritings
-      Handwriting.initialize_many(JSON.parse(get("/handwritings")))
+    def handwritings(params)
+      Handwriting.initialize_many(JSON.parse(get("/handwritings", params)))
     end
 
-    def get(path)
+    def get(path, params = {})
       uri = @uri
       uri.path = path
+
+      unless params.empty?
+        uri.query = URI.encode_www_form(params)
+      end
+
       req = Net::HTTP::Get.new(uri)
       req.basic_auth(uri.user, uri.password)
 
