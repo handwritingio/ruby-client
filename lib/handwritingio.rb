@@ -12,8 +12,16 @@ module Handwritingio
     end
 
     def handwriting(id)
+      Handwriting.new(JSON.parse(get("/handwritings/#{id}")))
+    end
+
+    def handwritings
+      Handwriting.initialize_many(JSON.parse(get("/handwritings")))
+    end
+
+    def get(path)
       uri = @uri
-      uri.path = "/handwritings/#{id}"
+      uri.path = path
       req = Net::HTTP::Get.new(uri)
       req.basic_auth(uri.user, uri.password)
 
@@ -21,8 +29,9 @@ module Handwritingio
       res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: use_ssl) {|http|
         http.request(req)
       }
-      Handwriting.new(JSON.parse(res.body))
+      res.body
     end
+    private :get
 
     DEFAULT_URI = URI.parse('https://api.handwriting.io')
 
@@ -37,9 +46,6 @@ module Handwritingio
 
   class Handwriting
     attr_reader :id, :title, :date_created, :date_modified, :rating_neatness, :rating_cursivity, :rating_embellishment, :rating_character_width
-    alias :created_at :date_created
-    alias :updated_at :date_modified
-
     def initialize(hash)
       @id = hash['id']
       @title = hash['title']
@@ -53,6 +59,10 @@ module Handwritingio
 
     def inspect
       "#<#{self.class.name} id=#{@id.inspect} title=#{@title.inspect}>"
+    end
+
+    def self.initialize_many(hashes)
+      hashes.map{ |hash| new(hash) }
     end
 
   end

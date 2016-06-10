@@ -1,10 +1,17 @@
+DOCKER_PREAMBLE=docker run -it --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp ruby:latest
 
 default:
-	docker run -it --rm --name my-running-script -v "${PWD}":/usr/src/myapp -w /usr/src/myapp ruby:latest ruby main.rb
+	${DOCKER_PREAMBLE} ruby main.rb
+.PHONY: default
 
 irb:
-	docker run -it --rm --name irb -v "${PWD}":/usr/src/myapp -w /usr/src/myapp ruby:latest irb
+	${DOCKER_PREAMBLE} irb
+.PHONY: irb
 
 shell:
-	docker run -it --rm --name irb -v "${PWD}":/usr/src/myapp -w /usr/src/myapp ruby:latest bash
+	${DOCKER_PREAMBLE} bash
+.PHONY: shell
 
+test:
+	${DOCKER_PREAMBLE} rake test
+.PHONY: test

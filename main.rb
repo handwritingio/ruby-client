@@ -9,5 +9,6 @@ secret = '011WCJ8ZTFV4TATF'
 handwriting_id = '5WGWVX9800WC'
 
 client = Handwritingio::Client.with_credentials(key, secret)
-handwriting = client.handwriting(handwriting_id)
-puts handwriting.created_at
+# handwriting = client.handwriting(handwriting_id)
+# puts handwriting.created_at
+p client.handwritings

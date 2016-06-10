@@ -8,4 +8,5 @@ Gem::Specification.new do |s|
   s.files = ['lib/handwritingio.rb']
   s.homepage = 'http://www.handwriting.io'
   s.license = 'MIT'
+  s.add_development_dependency "minitest"
 end
