@@ -19,6 +19,14 @@ module Handwritingio
       Handwriting.initialize_many(JSON.parse(get("/handwritings", params)))
     end
 
+    def render_png(params)
+      get("/render/png", params)
+    end
+
+    def render_pdf(params)
+      get("/render/pdf", params)
+    end
+
     def get(path, params = {})
       uri = @uri
       uri.path = path

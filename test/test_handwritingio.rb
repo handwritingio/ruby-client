@@ -47,6 +47,16 @@ class ClientTest < Minitest::Test
     assert_equal handwriting.title, 'Cedar'
   end
 
+  def test_render_png
+    png = @client.render_png(text: "Hello World!", handwriting_id: '5WGWVX9800WC')
+    assert_match(/^?PNG/, png)
+  end
+
+  def test_render_pdf
+    pdf = @client.render_pdf(text: "Hello World!", handwriting_id: '5WGWVX9800WC')
+    assert_match(/^%PDF/, pdf)
+  end
+
 end
 
 class HandwritingTest < Minitest::Test
