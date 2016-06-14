@@ -104,10 +104,11 @@ module Handwritingio
   end
 
   class Error < RuntimeError
-    attr_reader :error
+    attr_reader :error, :field
 
     def initialize(hash)
       @error = hash['error']
+      @field = hash['field']
     end
 
     def inspect

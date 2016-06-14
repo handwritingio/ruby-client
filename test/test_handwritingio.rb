@@ -66,6 +66,15 @@ class ClientTest < Minitest::Test
     assert_equal "unauthorized", errors.first.error
   end
 
+  def test_failed_validation
+    errors = assert_raises(Handwritingio::Errors) do
+      @client.render_png(text: "Oh I needed a handwriting_id")
+    end
+    assert_equal 1, errors.count
+    assert_equal "handwriting_id is required", errors.first.error
+    assert_equal "handwriting_id", errors.first.field
+  end
+
 end
 
 class HandwritingTest < Minitest::Test
