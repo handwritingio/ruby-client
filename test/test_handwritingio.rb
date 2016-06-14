@@ -57,6 +57,15 @@ class ClientTest < Minitest::Test
     assert_match(/^%PDF/, pdf)
   end
 
+  def test_failed_auth
+    client = Handwritingio::Client.with_credentials(KEY, SECRET.reverse)
+
+    errors = assert_raises(Handwritingio::Errors) do
+      client.handwritings
+    end
+    assert_equal errors.first.error, "unauthorized"
+  end
+
 end
 
 class HandwritingTest < Minitest::Test

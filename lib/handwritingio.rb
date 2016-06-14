@@ -2,6 +2,7 @@ require 'uri'
 require 'net/http'
 require 'json'
 require 'time'
+require 'forwardable'
 
 module Handwritingio
   class Client
@@ -15,7 +16,7 @@ module Handwritingio
       Handwriting.new(JSON.parse(get("/handwritings/#{id}")))
     end
 
-    def handwritings(params)
+    def handwritings(params = {})
       Handwriting.initialize_many(JSON.parse(get("/handwritings", params)))
     end
 
@@ -42,7 +43,12 @@ module Handwritingio
       res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: use_ssl) {|http|
         http.request(req)
       }
-      res.body
+
+      if res.is_a?(Net::HTTPSuccess)
+        return res.body
+      else
+        raise Errors.new(res)
+      end
     end
     private :get
 
@@ -79,4 +85,35 @@ module Handwritingio
     end
 
   end
+
+  class Errors < RuntimeError
+    extend Forwardable
+    def_delegators :@parsed, :[], :count, :map, :each, :first, :last
+
+    attr_reader :response
+
+    def initialize(response)
+      @response = response
+      @parsed = JSON.parse(response.body)['errors'].map{ |e| Error.new(e) }
+    end
+
+    def inspect
+      "#<#{self.class.name} (#{self.count})>"
+    end
+
+  end
+
+  class Error < RuntimeError
+    attr_reader :error
+
+    def initialize(hash)
+      @error = hash['error']
+    end
+
+    def inspect
+      "#<#{self.class.name} #{self.error.inspect}>"
+    end
+
+  end
+
 end
