@@ -4,6 +4,10 @@ test:
 	${DOCKER_PREAMBLE} rake test
 .PHONY: test
 
+rdoc:
+	${DOCKER_PREAMBLE} rake rdoc
+.PHONY: rdoc
+
 irb:
 	${DOCKER_PREAMBLE} irb
 .PHONY: irb
