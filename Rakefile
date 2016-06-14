@@ -10,6 +10,6 @@ Rake::TestTask.new do |t|
 end
 
 RDoc::Task.new do |rdoc|
-  rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include("lib/*.rb")
+  rdoc.main = "README.md"
+  rdoc.rdoc_files.include("README.md", "lib/*.rb")
 end
