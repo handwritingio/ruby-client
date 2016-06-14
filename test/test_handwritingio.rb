@@ -16,35 +16,35 @@ class ClientTest < Minitest::Test
 
   def test_with_credentials
     client = Handwritingio::Client.with_credentials('foo', 'bar')
-    assert_equal client.uri.user, 'foo'
-    assert_equal client.uri.password, 'bar'
-    assert_equal client.uri.host, 'api.handwriting.io'
+    assert_equal 'foo', client.uri.user
+    assert_equal 'bar', client.uri.password
+    assert_equal 'api.handwriting.io', client.uri.host
   end
 
   def test_constructor
     client = Handwritingio::Client.new('https://foo:bar@api.handwriting.io')
-    assert_equal client.uri.user, 'foo'
-    assert_equal client.uri.password, 'bar'
-    assert_equal client.uri.host, 'api.handwriting.io'
+    assert_equal 'foo', client.uri.user
+    assert_equal 'bar', client.uri.password
+    assert_equal 'api.handwriting.io', client.uri.host
 
     uri = URI.parse('https://foo:bar@api.handwriting.io') 
     client = Handwritingio::Client.new(uri)
-    assert_equal client.uri.user, 'foo'
-    assert_equal client.uri.password, 'bar'
-    assert_equal client.uri.host, 'api.handwriting.io'
+    assert_equal 'foo', client.uri.user
+    assert_equal 'bar', client.uri.password
+    assert_equal 'api.handwriting.io', client.uri.host
   end
 
   def test_handwritings
     handwritings = @client.handwritings(limit: 5, offset: 100, order_by: 'title', order_dir: 'desc')
-    assert_equal handwritings.size, 5
-    assert_equal handwritings.map(&:title), handwritings.map(&:title).sort.reverse
-    refute_equal handwritings.first.title[0], 'A'
-    refute_equal handwritings.first.title[0], 'Z'
+    assert_equal 5, handwritings.size
+    assert_equal handwritings.map(&:title).sort.reverse, handwritings.map(&:title)
+    refute_equal 'A', handwritings.first.title[0]
+    refute_equal 'Z', handwritings.first.title[0]
   end
 
   def test_handwriting
     handwriting = @client.handwriting('5WGWVX9800WC')
-    assert_equal handwriting.title, 'Cedar'
+    assert_equal 'Cedar', handwriting.title
   end
 
   def test_render_png
@@ -63,7 +63,7 @@ class ClientTest < Minitest::Test
     errors = assert_raises(Handwritingio::Errors) do
       client.handwritings
     end
-    assert_equal errors.first.error, "unauthorized"
+    assert_equal "unauthorized", errors.first.error
   end
 
 end
@@ -81,18 +81,18 @@ class HandwritingTest < Minitest::Test
       "rating_character_width": 1515
     }|
     handwriting = Handwritingio::Handwriting.new(JSON.parse(raw))
-    assert_equal handwriting.id, '2D5S46A80003'
-    assert_equal handwriting.title, 'Perry'
-    assert_equal handwriting.date_created.year, 2016
-    assert_equal handwriting.date_created.month, 6
-    assert_equal handwriting.date_created.day, 10
-    assert_equal handwriting.date_modified.year, 2016
-    assert_equal handwriting.date_modified.month, 6
-    assert_equal handwriting.date_modified.day, 10
-    assert_equal handwriting.rating_neatness, 1338
-    assert_equal handwriting.rating_cursivity, 1335
-    assert_equal handwriting.rating_embellishment, 1274
-    assert_equal handwriting.rating_character_width, 1515
+    assert_equal '2D5S46A80003', handwriting.id
+    assert_equal 'Perry', handwriting.title
+    assert_equal 2016, handwriting.date_created.year
+    assert_equal 6, handwriting.date_created.month
+    assert_equal 10, handwriting.date_created.day
+    assert_equal 2016, handwriting.date_modified.year
+    assert_equal 6, handwriting.date_modified.month
+    assert_equal 10, handwriting.date_modified.day
+    assert_equal 1338, handwriting.rating_neatness
+    assert_equal 1335, handwriting.rating_cursivity
+    assert_equal 1274, handwriting.rating_embellishment
+    assert_equal 1515, handwriting.rating_character_width
   end
 
   def test_initialize_many
@@ -139,6 +139,6 @@ class HandwritingTest < Minitest::Test
       }
     ]|
     handwritings = Handwritingio::Handwriting.initialize_many(JSON.parse(raw))
-    assert_equal handwritings.map(&:title), ['Molly', 'Winters', 'Perry', 'Squire']
+    assert_equal ['Molly', 'Winters', 'Perry', 'Squire'], handwritings.map(&:title)
   end
 end
