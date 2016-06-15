@@ -89,8 +89,9 @@ The output should look like this:
 
 The images written should look like these:
 
-![image](https://s3.amazonaws.com/hwio-cdn-production/ruby-client/handwriting.png)
-![image](https://s3.amazonaws.com/hwio-cdn-production/ruby-client/handwriting.pdf)
+[handwriting.png](https://s3.amazonaws.com/hwio-cdn-production/ruby-client/handwriting.png)
+
+[handwriting.pdf](https://s3.amazonaws.com/hwio-cdn-production/ruby-client/handwriting.pdf)
 
 ## Advanced Examples
 
