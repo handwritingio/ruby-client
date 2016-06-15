@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/handwritingio/ruby-client.svg?branch=master)](https://travis-ci.org/handwritingio/ruby-client)
 [![Code Climate](https://codeclimate.com/github/handwritingio/ruby-client/badges/gpa.svg)](https://codeclimate.com/github/handwritingio/ruby-client)
+[![Gem Version](https://badge.fury.io/rb/handwritingio.svg)](https://badge.fury.io/rb/handwritingio)
 
 ## Installation
 
