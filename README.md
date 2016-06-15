@@ -1,10 +1,12 @@
 # Handwriting.io Client
 
-TODO Links and Badges
+[![Code Climate](https://codeclimate.com/github/handwritingio/ruby-client/badges/gpa.svg)](https://codeclimate.com/github/handwritingio/ruby-client)
 
 ## Installation
 
-TODO Gem install command
+```bash
+gem install handwritingio
+```
 
 ## Basic Example
 
