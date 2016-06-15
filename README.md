@@ -1,5 +1,6 @@
 # Handwriting.io Client
 
+[![Build Status](https://travis-ci.org/handwritingio/ruby-client.svg?branch=master)](https://travis-ci.org/handwritingio/ruby-client)
 [![Code Climate](https://codeclimate.com/github/handwritingio/ruby-client/badges/gpa.svg)](https://codeclimate.com/github/handwritingio/ruby-client)
 
 ## Installation
