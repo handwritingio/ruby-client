@@ -23,11 +23,15 @@ client = Handwritingio::Client.with_credentials(key, secret)
 # Dimensions here are a typical 1080p display
 png = client.render_png(text: thank_you, handwriting_id: '5WGWVX9800WC', width: '1920px', height: '1080px', handwriting_size: '40px')
 pathname = Pathname.new(Dir.tmpdir) + 'handwriting.png'
-bytes = pathname.write(png)
+bytes = File.open(pathname, 'wb') {|file|
+  file.write(png)
+}
 puts "#{bytes} written to #{pathname}"
 
 # Dimensions here are a typical 8 1/2 x 11 inch sheet of paper
 pdf = client.render_pdf(text: thank_you, handwriting_id: '5WGWVX9800WC', width: '8.5in', height: '11in', handwriting_size: '24pt')
 pathname = Pathname.new(Dir.tmpdir) + 'handwriting.pdf'
-bytes = pathname.write(pdf)
+bytes = File.open(pathname, 'wb') {|file|
+  file.write(pdf)
+}
 puts "#{bytes} written to #{pathname}"
